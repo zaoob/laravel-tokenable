@@ -1,0 +1,39 @@
+{
+    "name": "zaoob/laravel-tokenable",
+    "description": "You can create token for any model",
+    "type": "library",
+    "license": "MIT",
+    "keywords": [
+        "laravel",
+        "tokenable",
+        "model",
+        "zaoob"
+    ],
+    "authors": [
+        {
+            "name": "Karim Mohamed (Komtcho)",
+            "email": "komicho1996@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=7.2",
+        "laravel/framework": ">=8.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Zaoob\\Laravel\\Tokenable\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Zaoob\\Laravel\\Tokenable\\TokenableServiceProvider"
+            ]
+        }
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}

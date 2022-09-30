@@ -21,7 +21,21 @@ class Token extends Model
      *
      * @var array<int, string>
      */
-    protected $fillable = ['name', 'token'];
+    protected $fillable = [
+        'name',
+        'token'
+    ];
+
+    /**
+     * The attributes that should be hidden for serialization.
+     *
+     * @var array<int, string>
+     */
+    protected $hidden = [
+        'id',
+        'modelable_type',
+        'modelable_id',
+    ];
 
     public function model($model = null)
     {

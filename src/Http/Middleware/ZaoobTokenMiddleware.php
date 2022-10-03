@@ -4,6 +4,7 @@ namespace Zaoob\Laravel\Tokenable\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
+use Throwable;
 use Zaoob\Laravel\Tokenable\Models\Token;
 
 class ZaoobTokenMiddleware
@@ -17,16 +18,16 @@ class ZaoobTokenMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        $request_token = $request->bearerToken();
-
-        $token = Token::where('token', $request_token)->firstOr(function () {
+        try {
+            $request_token = $request->bearerToken();
+            $token = Token::where('token', $request_token)->first();
+            $request->macro('model', function ($model = null) use ($token) {
+                return $token->model($model);
+            });
+            return $next($request);
+        } catch (Throwable $e) {
             abort(401);
-        });
 
-        $request->macro('model', function ($model = null) use ($token) {
-            return $token->model($model);
-        });
-
-        return $next($request);
+        }
     }
 }

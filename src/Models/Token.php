@@ -2,6 +2,7 @@
 
 namespace Zaoob\Laravel\Tokenable\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -23,7 +24,8 @@ class Token extends Model
      */
     protected $fillable = [
         'name',
-        'token'
+        'token',
+        'last_use',
     ];
 
     /**
@@ -37,11 +39,23 @@ class Token extends Model
         'modelable_id',
     ];
 
+    public function getLastUseAttribute($date)
+    {
+        if (is_null($date)) {
+            return null;
+        } else {
+            return Carbon::parse($date)->format('dd, mm, YY');
+        }
+    }
+
     public function model($model = null)
     {
         if ($model && $model != $this->modelable_type) {
             abort(404);
         }
+        $model->update([
+            'last_use' => Carbon::now(),
+        ]);
 
         return (new $this->modelable_type)->find($this->modelable_id);
     }

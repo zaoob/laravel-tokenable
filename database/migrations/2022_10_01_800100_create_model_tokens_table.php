@@ -13,11 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('zaoom_tokans', function (Blueprint $table) {
+        Schema::create('zaoob_tokens', function (Blueprint $table) {
             $table->id();
             $table->nullableUuidMorphs('modelable');
             $table->string('name');
             $table->string('token');
+            $table->date('last_use')->nullable();
             $table->timestamps();
         });
     }

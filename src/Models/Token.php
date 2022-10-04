@@ -14,7 +14,7 @@ class Token extends Model
      *
      * @var string
      */
-    protected $table = 'zaoom_tokans';
+    protected $table = 'zaoob_tokans';
 
     /**
      * The attributes that are mass assignable.

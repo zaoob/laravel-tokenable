@@ -14,11 +14,8 @@ return new class extends Migration
     public function up()
     {
         Schema::create('zaoob_tokens', function (Blueprint $table) {
-            $table->id();
-            $table->nullableUuidMorphs('modelable');
-            $table->string('name');
-            $table->string('token');
-            $table->timestamps();
+            $table->timestamp('last_used_at')->nullable();
+            $table->timestamp('expires_at')->nullable();
         });
     }
 
@@ -29,6 +26,10 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('zaoom_tokans');
+        Schema::table('zaoob_tokens', function ($table) {
+            $table->dropColumn('last_used_at');
+            $table->dropColumn('expires_at');
+
+        });
     }
 };

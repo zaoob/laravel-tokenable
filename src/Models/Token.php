@@ -15,7 +15,7 @@ class Token extends Model
      *
      * @var string
      */
-    protected $table = 'zaoom_tokans';
+    protected $table = 'zaoob_tokens';
 
     /**
      * The attributes that are mass assignable.
@@ -25,7 +25,6 @@ class Token extends Model
     protected $fillable = [
         'name',
         'token',
-        'last_use',
     ];
 
     /**
@@ -39,14 +38,6 @@ class Token extends Model
         'modelable_id',
     ];
 
-    public function getLastUseAttribute($date)
-    {
-        if (is_null($date)) {
-            return null;
-        } else {
-            return Carbon::parse($date)->format('dd, mm, YY');
-        }
-    }
 
     public function model($model = null)
     {
@@ -54,9 +45,9 @@ class Token extends Model
             abort(404);
         }
         $model->update([
-            'last_use' => Carbon::now(),
+            'last_used_at' => Carbon::now(),
         ]);
-
+        
         return (new $this->modelable_type)->find($this->modelable_id);
     }
 }
